@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardInfo - Dark Card Verification Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-credit-card"></i>
+                <span>CardInfo</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active" data-page="home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#verify" class="nav-link" data-page="verify">Verify Card</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link" data-page="dashboard">Dashboard</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+    <div class="site-warning">
+        ⚠️ This website is a privately owned website of the STAM community!
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">Dark Card Information Verification</h1>
+                    <p class="hero-subtitle">Advanced card verification tool with real-time processing and comprehensive security checks</p>
+                    <div class="hero-features">
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure Processing</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Real-time Results</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Analytics Dashboard</span>
+                        </div>
+                    </div>
+                    <button class="cta-button" onclick="navigateToPage('verify')">
+                        Start Verification
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="hero-image">
+                    <div class="card-preview">
+                        <div class="card-chip"></div>
+                        <div class="card-number">**** **** **** 1234</div>
+                        <div class="card-details">
+                            <div class="card-holder">CARD HOLDER</div>
+                            <div class="card-expiry">12/34</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2>How It Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Enter Card Details</h3>
+                        <p>Input your card number, expiry date, and CVV for verification</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Secure Processing</h3>
+                        <p>Our advanced algorithms verify card authenticity and security</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Get Results</h3>
+                        <p>Receive detailed card information and verification status</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Verify Card Page -->
+        <section id="verify" class="page">
+            <div class="verify-container">
+                <h2>Card Information Verification</h2>
+                <p class="verify-subtitle">Enter your card details below for verification</p>
+                
+                <form id="cardForm" class="card-form">
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <div class="input-group">
+                            <i class="fas fa-credit-card"></i>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiryDate">Expiry Date</label>
+                            <div class="input-group">
+                                <i class="fas fa-calendar"></i>
+                                <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="text" id="cvv" placeholder="123" maxlength="4" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cardHolder">Card Holder Name</label>
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="cardHolder" placeholder="JOHN DOE" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="verify-button">
+                        <span class="button-text">Verify Card</span>
+                        <div class="loading-spinner" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                    <button type="button" id="activateButton" class="activate-button" disabled>
+                        <span class="button-text">Activate Card</span>
+                        <div class="loading-spinner" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Results Page -->
+        <section id="results" class="page">
+            <div class="results-container">
+                <div class="results-header">
+                    <h2>Verification Results</h2>
+                    <button class="back-button" onclick="navigateToPage('verify')">
+                        <i class="fas fa-arrow-left"></i>
+                        Verify Another Card
+                    </button>
+                </div>
+                
+                <div class="results-content">
+                    <div class="card-info-section">
+                        <h3><i class="fas fa-credit-card"></i> Card Information</h3>
+                        <div class="card-details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Card Number:</span>
+                                <span class="detail-value" id="resultCardNumber">**** **** **** 1234</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Card Type:</span>
+                                <span class="detail-value" id="resultCardType">Visa</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Card Holder:</span>
+                                <span class="detail-value" id="resultCardHolder">John Doe</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Expiry Date:</span>
+                                <span class="detail-value" id="resultExpiry">12/25</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="account-info-section">
+                        <h3><i class="fas fa-wallet"></i> Account Information</h3>
+                        <div class="account-details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Account Balance:</span>
+                                <span class="detail-value" id="resultBalance">$2,450.75</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Available Credit:</span>
+                                <span class="detail-value" id="resultCredit">$7,549.25</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Credit Limit:</span>
+                                <span class="detail-value" id="resultLimit">$10,000.00</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Last Transaction:</span>
+                                <span class="detail-value" id="resultLastTransaction">$125.50 - Amazon</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="personal-info-section">
+                        <h3><i class="fas fa-user"></i> Personal Information</h3>
+                        <div class="personal-details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Full Name:</span>
+                                <span class="detail-value" id="resultFullName">John Michael Doe</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Address:</span>
+                                <span class="detail-value" id="resultAddress">123 Main Street, Apt 4B</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">City:</span>
+                                <span class="detail-value" id="resultCity">New York</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">State:</span>
+                                <span class="detail-value" id="resultState">NY</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">ZIP Code:</span>
+                                <span class="detail-value" id="resultZip">10001</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Phone:</span>
+                                <span class="detail-value" id="resultPhone">(555) 123-4567</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="verification-status">
+                        <div class="status-badge success">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Verification Successful</span>
+                        </div>
+                        <p class="status-message">Card information has been successfully verified and is valid.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Page -->
+        <section id="dashboard" class="page">
+            <div class="dashboard-container">
+                <h2>Analytics Dashboard</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalVisitors">1,247</h3>
+                            <p>Total Visitors</p>
+                        </div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>12.5%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalCards">892</h3>
+                            <p>Cards Verified</p>
+                        </div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>8.3%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="successRate">98.7%</h3>
+                            <p>Success Rate</p>
+                        </div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>2.1%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="avgTime">1.2s</h3>
+                            <p>Avg. Response Time</p>
+                        </div>
+                        <div class="stat-change negative">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>0.3s</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="charts-section">
+                    <div class="chart-container">
+                        <h3>Daily Verification Activity</h3>
+                        <canvas id="activityChart" width="400" height="200"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Card Type Distribution</h3>
+                        <canvas id="cardTypeChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+                
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list" id="activityList">
+                        <!-- Activity items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>CardInfo</h4>
+                <p>Advanced credit card verification and information retrieval tool</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#verify">Verify Card</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>kontakt@cardinfo.de</p>
+                <p>+49 30 1234567</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CardInfo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
